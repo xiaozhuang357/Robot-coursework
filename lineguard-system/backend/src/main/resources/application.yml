@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: lineguard-backend
+  datasource:
+    url: jdbc:h2:file:./runtime-data/lineguard;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    time-zone: Asia/Shanghai
+
+lineguard:
+  simulation:
+    enabled: true
+    tick-millis: 700
+    step-meters: 120
+    minimum-departure-battery: 40
+    critical-battery: 10
+    docking-max-retries: 2
+  storage:
+    image-root: ./runtime-data/images
+

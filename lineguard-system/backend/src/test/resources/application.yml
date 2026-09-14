@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:lineguard-test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+lineguard:
+  simulation:
+    enabled: false
+    tick-millis: 10
+    step-meters: 250
+    minimum-departure-battery: 40
+    critical-battery: 10
+    docking-max-retries: 2
+  storage:
+    image-root: ./target/test-images
+
