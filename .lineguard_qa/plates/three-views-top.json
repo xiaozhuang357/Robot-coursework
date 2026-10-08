@@ -1,0 +1,28 @@
+{
+  "figure": "three-views-top",
+  "plate": "three-views-top.png",
+  "width": 900,
+  "height": 760,
+  "anchors": {},
+  "bbox": {
+    "min": [
+      55.69,
+      236.84
+    ],
+    "max": [
+      736.87,
+      523.16
+    ],
+    "world_min": [
+      -0.701,
+      -0.2545,
+      -0.55
+    ],
+    "world_max": [
+      0.51,
+      0.2545,
+      0.115
+    ]
+  },
+  "note": "俯视图 全长 L × 宽 W"
+}

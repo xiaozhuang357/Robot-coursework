@@ -10,6 +10,8 @@ public class SimulationProperties {
     private double stepMeters = 120;
     private int minimumDepartureBattery = 40;
     private int criticalBattery = 10;
+    private int faultBatteryPercent = 18;
+    private int rechargedBatteryPercent = 100;
     private int dockingMaxRetries = 2;
 
     public boolean isEnabled() { return enabled; }
@@ -22,6 +24,10 @@ public class SimulationProperties {
     public void setMinimumDepartureBattery(int minimumDepartureBattery) { this.minimumDepartureBattery = minimumDepartureBattery; }
     public int getCriticalBattery() { return criticalBattery; }
     public void setCriticalBattery(int criticalBattery) { this.criticalBattery = criticalBattery; }
+    public int getFaultBatteryPercent() { return faultBatteryPercent; }
+    public void setFaultBatteryPercent(int faultBatteryPercent) { this.faultBatteryPercent = faultBatteryPercent; }
+    public int getRechargedBatteryPercent() { return rechargedBatteryPercent; }
+    public void setRechargedBatteryPercent(int rechargedBatteryPercent) { this.rechargedBatteryPercent = rechargedBatteryPercent; }
     public int getDockingMaxRetries() { return dockingMaxRetries; }
     public void setDockingMaxRetries(int dockingMaxRetries) { this.dockingMaxRetries = dockingMaxRetries; }
 }

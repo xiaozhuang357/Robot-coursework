@@ -1,8 +1,10 @@
 package com.lineguard.storage;
 
+import com.lineguard.api.BusinessException;
 import com.lineguard.domain.DomainTypes.DetectionQuality;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -32,25 +34,94 @@ public class InspectionImageStorage {
             String svg = """
                     <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
                       <defs>
+                        <!-- offset 使用无单位取值：模板经 String.formatted 处理，百分号会被当作格式符 -->
                         <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0" stop-color="#102a43"/><stop offset="1" stop-color="#244f68"/>
+                          <stop offset="0" stop-color="#b9d4e2"/>
+                          <stop offset="0.62" stop-color="#dbe8ee"/>
+                          <stop offset="1" stop-color="#c8d6da"/>
                         </linearGradient>
+                        <linearGradient id="wireCyl" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0" stop-color="#59666c"/>
+                          <stop offset="0.26" stop-color="#aebbc0"/>
+                          <stop offset="0.4" stop-color="#e8eef0"/>
+                          <stop offset="0.62" stop-color="#8d9aa0"/>
+                          <stop offset="1" stop-color="#414c52"/>
+                        </linearGradient>
+                        <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0" stop-color="#9aa7ad"/>
+                          <stop offset="0.35" stop-color="#e4ebee"/>
+                          <stop offset="1" stop-color="#6d7a80"/>
+                        </linearGradient>
+                        <radialGradient id="vignette" cx="0.5" cy="0.5" r="0.72">
+                          <stop offset="0.6" stop-color="#000000" stop-opacity="0"/>
+                          <stop offset="1" stop-color="#0b1a22" stop-opacity="0.42"/>
+                        </radialGradient>
+                        <linearGradient id="haze" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0" stop-color="#ffffff" stop-opacity="0.34"/>
+                          <stop offset="0.34" stop-color="#ffffff" stop-opacity="0"/>
+                        </linearGradient>
+                        <filter id="background"><feGaussianBlur stdDeviation="9"/></filter>
                         <filter id="blur"><feGaussianBlur stdDeviation="13"/></filter>
                       </defs>
+
                       <rect width="1280" height="720" fill="url(#sky)"/>
-                      <g %s>
-                        <path d="M0 470 Q310 385 610 460 T1280 430" fill="none" stroke="#163a32" stroke-width="190"/>
-                        <line x1="55" y1="305" x2="1225" y2="270" stroke="#d7e3e7" stroke-width="8"/>
-                        <line x1="640" y1="288" x2="640" y2="610" stroke="#bed0d6" stroke-width="16"/>
-                        <circle cx="640" cy="288" r="28" fill="#48cae4" stroke="#e8fbff" stroke-width="8"/>
-                        <rect x="570" y="320" width="140" height="86" rx="24" fill="#0b7285" stroke="#9bf6ff" stroke-width="6"/>
-                        <circle cx="595" cy="306" r="25" fill="#263238" stroke="#9bf6ff" stroke-width="7"/>
-                        <circle cx="685" cy="303" r="25" fill="#263238" stroke="#9bf6ff" stroke-width="7"/>
+                      <g filter="url(#background)" opacity="0.7">
+                        <path d="M0 470 L150 392 L300 452 L470 372 L640 448 L820 380 L980 448 L1140 386 L1280 442 L1280 720 L0 720 Z"
+                              fill="#9db4b6"/>
+                        <path d="M0 540 L190 486 L380 536 L580 478 L760 534 L960 482 L1150 532 L1280 496 L1280 720 L0 720 Z"
+                              fill="#7f9899"/>
                       </g>
-                      <rect x="48" y="42" width="565" height="148" rx="18" fill="#071924" opacity="0.86"/>
-                      <text x="80" y="92" fill="#9bf6ff" font-size="28" font-family="Microsoft YaHei, sans-serif">LineGuard 近距离巡检图像</text>
-                      <text x="80" y="132" fill="#ffffff" font-size="22" font-family="Microsoft YaHei, sans-serif">%s · %s</text>
-                      <text x="80" y="168" fill="#d4e8ee" font-size="20" font-family="Microsoft YaHei, sans-serif">检测位置 %.0f m · %s</text>
+                      <rect y="596" width="1280" height="124" fill="#5f7a74" filter="url(#background)"/>
+
+                      <g %s>
+                        <g transform="rotate(-3.4 640 366)">
+                          <!-- 导线本体：圆柱高光示意金属绞线 -->
+                          <rect x="-90" y="328" width="1460" height="78" fill="url(#wireCyl)"/>
+                          <g fill="none" stroke="#6f7d83" stroke-width="1.5" opacity="0.5">
+                            <path d="M-90 344 Q320 338 640 345 T1370 344"/>
+                            <path d="M-90 360 Q320 366 640 359 T1370 360"/>
+                            <path d="M-90 376 Q320 370 640 377 T1370 376"/>
+                            <path d="M-90 392 Q320 398 640 391 T1370 392"/>
+                          </g>
+                          <rect x="-90" y="330" width="1460" height="3" fill="#f2f7f8" opacity="0.45"/>
+                          <!-- 预绞式护线条 -->
+                          <g fill="none" stroke="#c3ced3" stroke-width="5" opacity="0.9">
+                            <path d="M150 332 q26 18 0 36 q-26 18 0 36"/>
+                            <path d="M196 332 q26 18 0 36 q-26 18 0 36"/>
+                            <path d="M242 332 q26 18 0 36 q-26 18 0 36"/>
+                            <path d="M288 332 q26 18 0 36 q-26 18 0 36"/>
+                          </g>
+                          <!-- 悬垂线夹：金具与螺栓 -->
+                          <rect x="852" y="312" width="188" height="108" rx="16" fill="url(#metal)" stroke="#5b686e" stroke-width="2"/>
+                          <rect x="872" y="330" width="148" height="14" rx="7" fill="#f4f8f9" opacity="0.6"/>
+                          <circle cx="896" cy="374" r="14" fill="#7d8a90" stroke="#4d585d" stroke-width="2"/>
+                          <path d="M884 374 h24 M896 362 v24" stroke="#3f4a4f" stroke-width="3"/>
+                          <circle cx="996" cy="374" r="14" fill="#7d8a90" stroke="#4d585d" stroke-width="2"/>
+                          <path d="M984 374 h24 M996 362 v24" stroke="#3f4a4f" stroke-width="3"/>
+                          <path d="M852 402 q94 26 188 0" fill="none" stroke="#5b686e" stroke-width="3" opacity="0.6"/>
+                          <!-- 一处腐蚀痕迹：复核重点 -->
+                          <ellipse cx="566" cy="356" rx="42" ry="17" fill="#6a604f" opacity="0.82"/>
+                          <ellipse cx="560" cy="352" rx="22" ry="9" fill="#8a7c62" opacity="0.8"/>
+                          <ellipse cx="566" cy="356" rx="42" ry="17" fill="none" stroke="#4c463a" stroke-width="1.6" opacity="0.7"/>
+                          <ellipse cx="470" cy="392" rx="12" ry="6" fill="#5f5748" opacity="0.6"/>
+                        </g>
+                        <rect width="1280" height="720" fill="url(#haze)"/>
+                        <rect width="1280" height="720" fill="url(#vignette)"/>
+                      </g>
+
+                      <g font-family="PingFang SC, Microsoft YaHei, sans-serif">
+                        <rect x="48" y="42" width="612" height="150" rx="14" fill="#071924" opacity="0.78"/>
+                        <text x="80" y="92" fill="#9bf6ff" font-size="27">LineGuard 近距离巡检图像</text>
+                        <text x="80" y="132" fill="#ffffff" font-size="21">%s · %s</text>
+                        <text x="80" y="168" fill="#d4e8ee" font-size="19">检测位置 %.0f m · %s</text>
+                        <g opacity="0.85">
+                          <rect x="48" y="546" width="240" height="46" rx="8" fill="#071924" opacity="0.7"/>
+                          <path d="M70 570 h196" stroke="#e8f4f6" stroke-width="3"/>
+                          <path d="M70 562 v16 M168 562 v16 M266 562 v16" stroke="#e8f4f6" stroke-width="3"/>
+                          <text x="70" y="608" fill="#d4e8ee" font-size="17">标尺 200 mm · 固定视角</text>
+                        </g>
+                        <text x="1112" y="584" fill="#e8f4f6" font-size="18" opacity="0.85">CAM-01</text>
+                      </g>
                     </svg>
                     """.formatted(blur, escape(taskCode), escape(pointName), positionMeters, qualityText);
             Files.writeString(imageRoot.resolve(fileName), svg, StandardCharsets.UTF_8);
@@ -61,11 +132,17 @@ public class InspectionImageStorage {
     }
 
     public Resource load(String fileName) {
+        Path target = imageRoot.resolve(fileName).normalize();
+        if (!target.startsWith(imageRoot)) {
+            throw new IllegalArgumentException("检测图像文件名非法");
+        }
+        // 两种失败要分开报：文件名越界是请求不合法，文件缺失则是服务端存的东西不见了。
+        // 以前两者都抛 IllegalArgumentException，被兜底处理器统一压成 400"请求参数不合法或无法解析"——
+        // 明明请求没问题，排查的人却会往参数上找。
+        if (!Files.isRegularFile(target)) {
+            throw new BusinessException(HttpStatus.NOT_FOUND, "检测图像不存在：" + fileName);
+        }
         try {
-            Path target = imageRoot.resolve(fileName).normalize();
-            if (!target.startsWith(imageRoot) || !Files.isRegularFile(target)) {
-                throw new IllegalArgumentException("检测图像不存在");
-            }
             return new UrlResource(target.toUri());
         } catch (IOException exception) {
             throw new IllegalStateException("无法读取检测图像", exception);

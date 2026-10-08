@@ -1,0 +1,1563 @@
+{
+ "_generated_by": "tools/blender/export_parts.py（改几何请改 lineguard_model.py 后重跑）",
+ "_axes": "米；已映射到 three.js：x 沿地线，y 竖直向上，z 横向；地线轴心在 y = 0",
+ "_source_hash": "66de88714af47dc3",
+ "wireRadius": 0.01,
+ "robot": [
+  {
+   "kind": "box",
+   "name": "Chassis",
+   "material": "Shell",
+   "pos": [
+    0.0,
+    -0.34,
+    0.0
+   ],
+   "size": [
+    1.02,
+    0.26,
+    0.5
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "TopCover",
+   "material": "ShellLight",
+   "pos": [
+    0.0,
+    -0.205,
+    0.0
+   ],
+   "size": [
+    0.9588,
+    0.028,
+    0.45
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "Groove-1_0.0",
+   "material": "Panel",
+   "pos": [
+    0.0,
+    -0.35,
+    0.248
+   ],
+   "size": [
+    0.6936,
+    0.016,
+    0.013
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "Groove-1_0.07",
+   "material": "Panel",
+   "pos": [
+    0.0,
+    -0.28,
+    0.248
+   ],
+   "size": [
+    0.6936,
+    0.016,
+    0.013
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "Groove1_0.0",
+   "material": "Panel",
+   "pos": [
+    0.0,
+    -0.35,
+    -0.248
+   ],
+   "size": [
+    0.6936,
+    0.016,
+    0.013
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "Groove1_0.07",
+   "material": "Panel",
+   "pos": [
+    0.0,
+    -0.28,
+    -0.248
+   ],
+   "size": [
+    0.6936,
+    0.016,
+    0.013
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "Spine",
+   "material": "AlloyDark",
+   "pos": [
+    0.0,
+    -0.19,
+    0.0
+   ],
+   "size": [
+    0.8976,
+    0.05,
+    0.11
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "ClampPost-0.3_-1",
+   "material": "Alloy",
+   "pos": [
+    -0.3,
+    -0.028,
+    0.105
+   ],
+   "size": [
+    0.045,
+    0.255,
+    0.024
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "ClampPost-0.3_1",
+   "material": "Alloy",
+   "pos": [
+    -0.3,
+    -0.028,
+    -0.105
+   ],
+   "size": [
+    0.045,
+    0.255,
+    0.024
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "ClampCap-0.3",
+   "material": "Alloy",
+   "pos": [
+    -0.3,
+    0.108,
+    0.0
+   ],
+   "size": [
+    0.05,
+    0.014,
+    0.226
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "cylinder",
+   "name": "Drive-0.3_Bottom",
+   "material": "Rubber",
+   "pos": [
+    -0.3,
+    0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.026,
+   "rPos": 0.044,
+   "rNeg": 0.044
+  },
+  {
+   "kind": "cone",
+   "name": "Drive-0.3_Flange-1",
+   "material": "Alloy",
+   "pos": [
+    -0.3,
+    0.054,
+    0.0185
+   ],
+   "axis": "z",
+   "depth": 0.011,
+   "rPos": 0.052,
+   "rNeg": 0.044
+  },
+  {
+   "kind": "cone",
+   "name": "Drive-0.3_Flange1",
+   "material": "Alloy",
+   "pos": [
+    -0.3,
+    0.054,
+    -0.0185
+   ],
+   "axis": "z",
+   "depth": 0.011,
+   "rPos": 0.044,
+   "rNeg": 0.052
+  },
+  {
+   "kind": "cylinder",
+   "name": "Drive-0.3_Hub",
+   "material": "AlloyDark",
+   "pos": [
+    -0.3,
+    0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.05088,
+   "rPos": 0.0156,
+   "rNeg": 0.0156
+  },
+  {
+   "kind": "cylinder",
+   "name": "Pinch-0.3_Bottom",
+   "material": "Rubber",
+   "pos": [
+    -0.3,
+    -0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.026,
+   "rPos": 0.044,
+   "rNeg": 0.044
+  },
+  {
+   "kind": "cone",
+   "name": "Pinch-0.3_Flange-1",
+   "material": "Alloy",
+   "pos": [
+    -0.3,
+    -0.054,
+    0.0185
+   ],
+   "axis": "z",
+   "depth": 0.011,
+   "rPos": 0.052,
+   "rNeg": 0.044
+  },
+  {
+   "kind": "cone",
+   "name": "Pinch-0.3_Flange1",
+   "material": "Alloy",
+   "pos": [
+    -0.3,
+    -0.054,
+    -0.0185
+   ],
+   "axis": "z",
+   "depth": 0.011,
+   "rPos": 0.044,
+   "rNeg": 0.052
+  },
+  {
+   "kind": "cylinder",
+   "name": "Pinch-0.3_Hub",
+   "material": "AlloyDark",
+   "pos": [
+    -0.3,
+    -0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.05088,
+   "rPos": 0.0156,
+   "rNeg": 0.0156
+  },
+  {
+   "kind": "cylinder",
+   "name": "AxleTop-0.3",
+   "material": "Alloy",
+   "pos": [
+    -0.3,
+    0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.24,
+   "rPos": 0.013,
+   "rNeg": 0.013
+  },
+  {
+   "kind": "cylinder",
+   "name": "AxleBottom-0.3",
+   "material": "AlloyDark",
+   "pos": [
+    -0.3,
+    -0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.24,
+   "rPos": 0.013,
+   "rNeg": 0.013
+  },
+  {
+   "kind": "box",
+   "name": "Slider-0.3",
+   "material": "Alloy",
+   "pos": [
+    -0.3,
+    -0.054,
+    0.0
+   ],
+   "size": [
+    0.05,
+    0.055,
+    0.23
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "cylinder",
+   "name": "GuideRod-0.3",
+   "material": "Alloy",
+   "pos": [
+    -0.3,
+    -0.105,
+    0.0
+   ],
+   "axis": "y",
+   "depth": 0.09,
+   "rPos": 0.008,
+   "rNeg": 0.008
+  },
+  {
+   "kind": "torus",
+   "name": "Spring-0.3_0",
+   "material": "AlloyDark",
+   "pos": [
+    -0.3,
+    -0.085,
+    0.0
+   ],
+   "axis": "y",
+   "radius": 0.03,
+   "tube": 0.006
+  },
+  {
+   "kind": "torus",
+   "name": "Spring-0.3_1",
+   "material": "AlloyDark",
+   "pos": [
+    -0.3,
+    -0.106,
+    0.0
+   ],
+   "axis": "y",
+   "radius": 0.03,
+   "tube": 0.006
+  },
+  {
+   "kind": "torus",
+   "name": "Spring-0.3_2",
+   "material": "AlloyDark",
+   "pos": [
+    -0.3,
+    -0.127,
+    0.0
+   ],
+   "axis": "y",
+   "radius": 0.03,
+   "tube": 0.006
+  },
+  {
+   "kind": "box",
+   "name": "SpringSeat-0.3",
+   "material": "AlloyDark",
+   "pos": [
+    -0.3,
+    -0.145,
+    0.0
+   ],
+   "size": [
+    0.07,
+    0.022,
+    0.23
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "GearCover-0.3",
+   "material": "Panel",
+   "pos": [
+    -0.3,
+    0.0,
+    0.127
+   ],
+   "size": [
+    0.085,
+    0.128,
+    0.036
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "cylinder",
+   "name": "Motor-0.3",
+   "material": "AlloyDark",
+   "pos": [
+    -0.3,
+    0.054,
+    0.172
+   ],
+   "axis": "z",
+   "depth": 0.055,
+   "rPos": 0.028,
+   "rNeg": 0.028
+  },
+  {
+   "kind": "box",
+   "name": "ClampPost0.3_-1",
+   "material": "Alloy",
+   "pos": [
+    0.3,
+    -0.028,
+    0.105
+   ],
+   "size": [
+    0.045,
+    0.255,
+    0.024
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "ClampPost0.3_1",
+   "material": "Alloy",
+   "pos": [
+    0.3,
+    -0.028,
+    -0.105
+   ],
+   "size": [
+    0.045,
+    0.255,
+    0.024
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "ClampCap0.3",
+   "material": "Alloy",
+   "pos": [
+    0.3,
+    0.108,
+    0.0
+   ],
+   "size": [
+    0.05,
+    0.014,
+    0.226
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "cylinder",
+   "name": "Drive0.3_Bottom",
+   "material": "Rubber",
+   "pos": [
+    0.3,
+    0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.026,
+   "rPos": 0.044,
+   "rNeg": 0.044
+  },
+  {
+   "kind": "cone",
+   "name": "Drive0.3_Flange-1",
+   "material": "Alloy",
+   "pos": [
+    0.3,
+    0.054,
+    0.0185
+   ],
+   "axis": "z",
+   "depth": 0.011,
+   "rPos": 0.052,
+   "rNeg": 0.044
+  },
+  {
+   "kind": "cone",
+   "name": "Drive0.3_Flange1",
+   "material": "Alloy",
+   "pos": [
+    0.3,
+    0.054,
+    -0.0185
+   ],
+   "axis": "z",
+   "depth": 0.011,
+   "rPos": 0.044,
+   "rNeg": 0.052
+  },
+  {
+   "kind": "cylinder",
+   "name": "Drive0.3_Hub",
+   "material": "AlloyDark",
+   "pos": [
+    0.3,
+    0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.05088,
+   "rPos": 0.0156,
+   "rNeg": 0.0156
+  },
+  {
+   "kind": "cylinder",
+   "name": "Pinch0.3_Bottom",
+   "material": "Rubber",
+   "pos": [
+    0.3,
+    -0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.026,
+   "rPos": 0.044,
+   "rNeg": 0.044
+  },
+  {
+   "kind": "cone",
+   "name": "Pinch0.3_Flange-1",
+   "material": "Alloy",
+   "pos": [
+    0.3,
+    -0.054,
+    0.0185
+   ],
+   "axis": "z",
+   "depth": 0.011,
+   "rPos": 0.052,
+   "rNeg": 0.044
+  },
+  {
+   "kind": "cone",
+   "name": "Pinch0.3_Flange1",
+   "material": "Alloy",
+   "pos": [
+    0.3,
+    -0.054,
+    -0.0185
+   ],
+   "axis": "z",
+   "depth": 0.011,
+   "rPos": 0.044,
+   "rNeg": 0.052
+  },
+  {
+   "kind": "cylinder",
+   "name": "Pinch0.3_Hub",
+   "material": "AlloyDark",
+   "pos": [
+    0.3,
+    -0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.05088,
+   "rPos": 0.0156,
+   "rNeg": 0.0156
+  },
+  {
+   "kind": "cylinder",
+   "name": "AxleTop0.3",
+   "material": "Alloy",
+   "pos": [
+    0.3,
+    0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.24,
+   "rPos": 0.013,
+   "rNeg": 0.013
+  },
+  {
+   "kind": "cylinder",
+   "name": "AxleBottom0.3",
+   "material": "AlloyDark",
+   "pos": [
+    0.3,
+    -0.054,
+    0.0
+   ],
+   "axis": "z",
+   "depth": 0.24,
+   "rPos": 0.013,
+   "rNeg": 0.013
+  },
+  {
+   "kind": "box",
+   "name": "Slider0.3",
+   "material": "Alloy",
+   "pos": [
+    0.3,
+    -0.054,
+    0.0
+   ],
+   "size": [
+    0.05,
+    0.055,
+    0.23
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "cylinder",
+   "name": "GuideRod0.3",
+   "material": "Alloy",
+   "pos": [
+    0.3,
+    -0.105,
+    0.0
+   ],
+   "axis": "y",
+   "depth": 0.09,
+   "rPos": 0.008,
+   "rNeg": 0.008
+  },
+  {
+   "kind": "torus",
+   "name": "Spring0.3_0",
+   "material": "AlloyDark",
+   "pos": [
+    0.3,
+    -0.085,
+    0.0
+   ],
+   "axis": "y",
+   "radius": 0.03,
+   "tube": 0.006
+  },
+  {
+   "kind": "torus",
+   "name": "Spring0.3_1",
+   "material": "AlloyDark",
+   "pos": [
+    0.3,
+    -0.106,
+    0.0
+   ],
+   "axis": "y",
+   "radius": 0.03,
+   "tube": 0.006
+  },
+  {
+   "kind": "torus",
+   "name": "Spring0.3_2",
+   "material": "AlloyDark",
+   "pos": [
+    0.3,
+    -0.127,
+    0.0
+   ],
+   "axis": "y",
+   "radius": 0.03,
+   "tube": 0.006
+  },
+  {
+   "kind": "box",
+   "name": "SpringSeat0.3",
+   "material": "AlloyDark",
+   "pos": [
+    0.3,
+    -0.145,
+    0.0
+   ],
+   "size": [
+    0.07,
+    0.022,
+    0.23
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "GearCover0.3",
+   "material": "Panel",
+   "pos": [
+    0.3,
+    0.0,
+    0.127
+   ],
+   "size": [
+    0.085,
+    0.128,
+    0.036
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "cylinder",
+   "name": "Motor0.3",
+   "material": "AlloyDark",
+   "pos": [
+    0.3,
+    0.054,
+    0.172
+   ],
+   "axis": "z",
+   "depth": 0.055,
+   "rPos": 0.028,
+   "rNeg": 0.028
+  },
+  {
+   "kind": "box",
+   "name": "Battery",
+   "material": "AlloyDark",
+   "pos": [
+    0.0,
+    -0.5,
+    0.0
+   ],
+   "size": [
+    0.48,
+    0.1,
+    0.34
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "BatteryRail",
+   "material": "Alloy",
+   "pos": [
+    0.0,
+    -0.443,
+    0.0
+   ],
+   "size": [
+    0.54,
+    0.022,
+    0.38
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "cylinder",
+   "name": "Terminal-1",
+   "material": "Brass",
+   "pos": [
+    -0.26,
+    -0.5,
+    0.09
+   ],
+   "axis": "x",
+   "depth": 0.05,
+   "rPos": 0.013,
+   "rNeg": 0.013
+  },
+  {
+   "kind": "cylinder",
+   "name": "Terminal1",
+   "material": "Brass",
+   "pos": [
+    -0.26,
+    -0.5,
+    -0.09
+   ],
+   "axis": "x",
+   "depth": 0.05,
+   "rPos": 0.013,
+   "rNeg": 0.013
+  },
+  {
+   "kind": "cylinder",
+   "name": "PanBase",
+   "material": "Alloy",
+   "pos": [
+    -0.53,
+    -0.3,
+    0.0
+   ],
+   "axis": "x",
+   "depth": 0.055,
+   "rPos": 0.05,
+   "rNeg": 0.05
+  },
+  {
+   "kind": "torus",
+   "name": "PanRing",
+   "material": "AlloyDark",
+   "pos": [
+    -0.56,
+    -0.3,
+    0.0
+   ],
+   "axis": "x",
+   "radius": 0.052,
+   "tube": 0.01
+  },
+  {
+   "kind": "cylinder",
+   "name": "Barrel",
+   "material": "AlloyDark",
+   "pos": [
+    -0.625,
+    -0.3,
+    0.0
+   ],
+   "axis": "x",
+   "depth": 0.105,
+   "rPos": 0.042,
+   "rNeg": 0.042
+  },
+  {
+   "kind": "torus",
+   "name": "LensRing",
+   "material": "Alloy",
+   "pos": [
+    -0.678,
+    -0.3,
+    0.0
+   ],
+   "axis": "x",
+   "radius": 0.044,
+   "tube": 0.008
+  },
+  {
+   "kind": "cylinder",
+   "name": "Lens",
+   "material": "Glass",
+   "pos": [
+    -0.685,
+    -0.3,
+    0.0
+   ],
+   "axis": "x",
+   "depth": 0.012,
+   "rPos": 0.032,
+   "rNeg": 0.032
+  },
+  {
+   "kind": "sphere",
+   "name": "Emitter-1",
+   "material": "Amber",
+   "pos": [
+    -0.69,
+    -0.3,
+    0.048
+   ],
+   "axis": "y",
+   "radius": 0.011
+  },
+  {
+   "kind": "sphere",
+   "name": "Emitter1",
+   "material": "Amber",
+   "pos": [
+    -0.69,
+    -0.3,
+    -0.048
+   ],
+   "axis": "y",
+   "radius": 0.011
+  },
+  {
+   "kind": "box",
+   "name": "ControlBox",
+   "material": "Panel",
+   "pos": [
+    0.0,
+    -0.155,
+    0.0
+   ],
+   "size": [
+    0.2,
+    0.075,
+    0.26
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "Display",
+   "material": "Glass",
+   "pos": [
+    0.0,
+    -0.112,
+    0.0
+   ],
+   "size": [
+    0.1,
+    0.014,
+    0.15
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "cylinder",
+   "name": "Button-1",
+   "material": "Amber",
+   "pos": [
+    0.0,
+    -0.113,
+    0.085
+   ],
+   "axis": "y",
+   "depth": 0.012,
+   "rPos": 0.011,
+   "rNeg": 0.011
+  },
+  {
+   "kind": "cylinder",
+   "name": "Button1",
+   "material": "Amber",
+   "pos": [
+    0.0,
+    -0.113,
+    -0.085
+   ],
+   "axis": "y",
+   "depth": 0.012,
+   "rPos": 0.011,
+   "rNeg": 0.011
+  },
+  {
+   "kind": "cylinder",
+   "name": "Mast",
+   "material": "AlloyDark",
+   "pos": [
+    0.4,
+    -0.07,
+    0.2
+   ],
+   "axis": "y",
+   "depth": 0.28,
+   "rPos": 0.01,
+   "rNeg": 0.01
+  },
+  {
+   "kind": "sphere",
+   "name": "AntennaTip",
+   "material": "Amber",
+   "pos": [
+    0.4,
+    0.08,
+    0.2
+   ],
+   "axis": "y",
+   "radius": 0.018
+  },
+  {
+   "kind": "cylinder",
+   "name": "Gland0",
+   "material": "AlloyDark",
+   "pos": [
+    -0.44,
+    -0.212,
+    0.2
+   ],
+   "axis": "y",
+   "depth": 0.028,
+   "rPos": 0.013,
+   "rNeg": 0.013
+  },
+  {
+   "kind": "cylinder",
+   "name": "Gland1",
+   "material": "AlloyDark",
+   "pos": [
+    -0.44,
+    -0.212,
+    -0.2
+   ],
+   "axis": "y",
+   "depth": 0.028,
+   "rPos": 0.013,
+   "rNeg": 0.013
+  },
+  {
+   "kind": "cylinder",
+   "name": "Gland2",
+   "material": "AlloyDark",
+   "pos": [
+    0.44,
+    -0.212,
+    0.2
+   ],
+   "axis": "y",
+   "depth": 0.028,
+   "rPos": 0.013,
+   "rNeg": 0.013
+  },
+  {
+   "kind": "cylinder",
+   "name": "Gland3",
+   "material": "AlloyDark",
+   "pos": [
+    0.44,
+    -0.212,
+    -0.2
+   ],
+   "axis": "y",
+   "depth": 0.028,
+   "rPos": 0.013,
+   "rNeg": 0.013
+  },
+  {
+   "kind": "cylinder",
+   "name": "Bolt",
+   "material": "Alloy",
+   "pos": [
+    -0.42,
+    -0.2,
+    0.18
+   ],
+   "axis": "y",
+   "depth": 0.022,
+   "rPos": 0.01,
+   "rNeg": 0.01
+  },
+  {
+   "kind": "cylinder",
+   "name": "Bolt",
+   "material": "Alloy",
+   "pos": [
+    -0.42,
+    -0.2,
+    -0.18
+   ],
+   "axis": "y",
+   "depth": 0.022,
+   "rPos": 0.01,
+   "rNeg": 0.01
+  },
+  {
+   "kind": "cylinder",
+   "name": "Bolt",
+   "material": "Alloy",
+   "pos": [
+    0.42,
+    -0.2,
+    0.18
+   ],
+   "axis": "y",
+   "depth": 0.022,
+   "rPos": 0.01,
+   "rNeg": 0.01
+  },
+  {
+   "kind": "cylinder",
+   "name": "Bolt",
+   "material": "Alloy",
+   "pos": [
+    0.42,
+    -0.2,
+    -0.18
+   ],
+   "axis": "y",
+   "depth": 0.022,
+   "rPos": 0.01,
+   "rNeg": 0.01
+  }
+ ],
+ "dock": [
+  {
+   "kind": "box",
+   "name": "DockRail-1",
+   "material": "AlloyDark",
+   "pos": [
+    0.1,
+    -0.375,
+    0.345
+   ],
+   "size": [
+    1.2,
+    0.1,
+    0.03
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "Horn-1",
+   "material": "Alloy",
+   "pos": [
+    -0.56,
+    -0.35,
+    0.305
+   ],
+   "size": [
+    0.26,
+    0.16,
+    0.028
+   ],
+   "quat": [
+    0.0,
+    0.149438,
+    0.0,
+    0.988771
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "Contact-1",
+   "material": "Brass",
+   "pos": [
+    0.2,
+    -0.31,
+    0.292
+   ],
+   "size": [
+    0.1,
+    0.07,
+    0.08
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "DockRail1",
+   "material": "AlloyDark",
+   "pos": [
+    0.1,
+    -0.375,
+    -0.345
+   ],
+   "size": [
+    1.2,
+    0.1,
+    0.03
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "Horn1",
+   "material": "Alloy",
+   "pos": [
+    -0.56,
+    -0.35,
+    -0.305
+   ],
+   "size": [
+    0.26,
+    0.16,
+    0.028
+   ],
+   "quat": [
+    0.0,
+    -0.149438,
+    0.0,
+    0.988771
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "Contact1",
+   "material": "Brass",
+   "pos": [
+    0.2,
+    -0.31,
+    -0.292
+   ],
+   "size": [
+    0.1,
+    0.07,
+    0.08
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "StopBlock",
+   "material": "Panel",
+   "pos": [
+    0.62,
+    -0.26,
+    0.0
+   ],
+   "size": [
+    0.07,
+    0.52,
+    0.68
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "BeamPost-1",
+   "material": "AlloyDark",
+   "pos": [
+    0.62,
+    0.12,
+    0.345
+   ],
+   "size": [
+    0.05,
+    0.24,
+    0.032
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "BeamPost1",
+   "material": "AlloyDark",
+   "pos": [
+    0.62,
+    0.12,
+    -0.345
+   ],
+   "size": [
+    0.05,
+    0.24,
+    0.032
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "CrossBeam",
+   "material": "Alloy",
+   "pos": [
+    0.62,
+    0.26,
+    0.0
+   ],
+   "size": [
+    0.09,
+    0.04,
+    0.76
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "LockPawl-1",
+   "material": "AlloyDark",
+   "pos": [
+    0.575,
+    -0.178,
+    0.11
+   ],
+   "size": [
+    0.02,
+    0.022,
+    0.05
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "box",
+   "name": "LockPawl1",
+   "material": "AlloyDark",
+   "pos": [
+    0.575,
+    -0.178,
+    -0.11
+   ],
+   "size": [
+    0.02,
+    0.022,
+    0.05
+   ],
+   "quat": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ]
+  },
+  {
+   "kind": "cylinder",
+   "name": "DockSensor",
+   "material": "Accent",
+   "pos": [
+    0.56,
+    -0.1,
+    0.16
+   ],
+   "axis": "y",
+   "depth": 0.032,
+   "rPos": 0.016,
+   "rNeg": 0.016
+  },
+  {
+   "kind": "sphere",
+   "name": "Lamp",
+   "material": "Amber",
+   "pos": [
+    0.62,
+    0.24,
+    -0.38
+   ],
+   "axis": "y",
+   "radius": 0.024
+  }
+ ],
+ "materials": {
+  "Accent": {
+   "color": [
+    0.03,
+    0.23,
+    0.27
+   ],
+   "metalness": 0.4,
+   "roughness": 0.4
+  },
+  "Alloy": {
+   "color": [
+    0.39,
+    0.46,
+    0.5
+   ],
+   "metalness": 0.9,
+   "roughness": 0.3
+  },
+  "AlloyDark": {
+   "color": [
+    0.075,
+    0.098,
+    0.11
+   ],
+   "metalness": 0.85,
+   "roughness": 0.36
+  },
+  "Amber": {
+   "color": [
+    0.85,
+    0.36,
+    0.036
+   ],
+   "metalness": 0.2,
+   "roughness": 0.4
+  },
+  "Brass": {
+   "color": [
+    0.5,
+    0.24,
+    0.03
+   ],
+   "metalness": 0.95,
+   "roughness": 0.25
+  },
+  "Glass": {
+   "color": [
+    0.016,
+    0.04,
+    0.052
+   ],
+   "metalness": 0.25,
+   "roughness": 0.22
+  },
+  "Panel": {
+   "color": [
+    0.015,
+    0.032,
+    0.042
+   ],
+   "metalness": 0.45,
+   "roughness": 0.42
+  },
+  "Rubber": {
+   "color": [
+    0.018,
+    0.022,
+    0.026
+   ],
+   "metalness": 0.02,
+   "roughness": 0.9
+  },
+  "Shell": {
+   "color": [
+    0.027,
+    0.205,
+    0.254
+   ],
+   "metalness": 0.28,
+   "roughness": 0.46
+  },
+  "ShellLight": {
+   "color": [
+    0.235,
+    0.278,
+    0.302
+   ],
+   "metalness": 0.3,
+   "roughness": 0.55
+  }
+ }
+}

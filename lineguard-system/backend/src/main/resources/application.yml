@@ -5,6 +5,7 @@ spring:
   application:
     name: lineguard-backend
   datasource:
+    # 演示使用本地 H2 文件库，生产部署需替换为正式数据库并改用 validate。
     url: jdbc:h2:file:./runtime-data/lineguard;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
@@ -13,20 +14,24 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
   jackson:
-    time-zone: Asia/Shanghai
+    time-zone: ${lineguard.time-zone}
 
 lineguard:
+  time-zone: Asia/Shanghai
+  web:
+    allowed-origins: http://localhost:5173,http://127.0.0.1:5173
   simulation:
     enabled: true
     tick-millis: 700
     step-meters: 120
     minimum-departure-battery: 40
     critical-battery: 10
+    fault-battery-percent: 18
     docking-max-retries: 2
+  realtime:
+    # SSE 保活周期：长时间没有事件时，中间代理可能悄悄掐断长连接，两端却都以为还活着
+    heartbeat-millis: 15000
   storage:
     image-root: ./runtime-data/images
 

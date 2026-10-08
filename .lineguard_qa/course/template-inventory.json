@@ -1,0 +1,55 @@
+{
+  "path": "/Users/zhanglishuo/developer/github.com/Robot-coursework/《智能机器人软件设计方法与实践》封面及格式规范.docx",
+  "sha256": "bde79efcf08c65eb61dd4707ed9e8733038c3a3536cc35a2a33f72536384fe2d",
+  "pages": 2,
+  "parts": {
+    "[Content_Types].xml": {
+      "size": 1350,
+      "sha256": "b40c7e914ed715c305f10b29d02fcbabb82d04b0ae2e121a29afb098169f8902"
+    },
+    "_rels/.rels": {
+      "size": 737,
+      "sha256": "514e1846381cb6bcfff105a4b0a17d666cf0ed1f0c120bff73b82226ab7ed977"
+    },
+    "docProps/app.xml": {
+      "size": 628,
+      "sha256": "7597cdf97c84df75f11d2f75276a487f275646929acf4d2047d5b3c2fe55fac6"
+    },
+    "docProps/core.xml": {
+      "size": 637,
+      "sha256": "fe8be93b7d7b413adb116dd39c3af04e1e885d342e9bbcebd7f1dfb4c10a25dd"
+    },
+    "docProps/custom.xml": {
+      "size": 751,
+      "sha256": "4ce9b582f59207b3275d6767aeb983c7cd845eea0edbe49cb7e8a6b352abddae"
+    },
+    "word/_rels/document.xml.rels": {
+      "size": 812,
+      "sha256": "bd192a54779caa30fbc6f633951dcf4573aa442136f01bc44eda73213c856316"
+    },
+    "word/document.xml": {
+      "size": 41766,
+      "sha256": "5886272f50a94155da75a202ccc6d392a8b2f67d9494cb83fa4392d94aabc2e3"
+    },
+    "word/fontTable.xml": {
+      "size": 6295,
+      "sha256": "29b8557ebe2492ee54783c9e61b6f5fe18d2727f60ea52432d53fe0c75c9c15f"
+    },
+    "word/media/image1.png": {
+      "size": 16090,
+      "sha256": "c9a85d60f71341a606da007de172379138abda51bc56504e7e95702cd46f3fab"
+    },
+    "word/settings.xml": {
+      "size": 3135,
+      "sha256": "f46d3e99a998133726602ae83cf721a1f8132422f1a10c69b3d4a33dac7f4f99"
+    },
+    "word/styles.xml": {
+      "size": 27501,
+      "sha256": "13acd214a6af990bcf75a5f8e71589987d7e94875f9533f719777ac0871ac4c7"
+    },
+    "word/theme/theme1.xml": {
+      "size": 7054,
+      "sha256": "7d4ec24357ffff70f050526ccf97d956f696f7e9565b5f8c9028731116af577f"
+    }
+  }
+}

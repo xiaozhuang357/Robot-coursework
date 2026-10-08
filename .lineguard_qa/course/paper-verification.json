@@ -1,0 +1,332 @@
+[
+  {
+    "rule": "A4 与四边 2.5 cm",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "封面与正文分节",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "封面无页码",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "正文页码居中从 1 起",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "学号姓名填写正确",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "题目已填写得分留空",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "说明页已删除",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "正文关闭隐式网格",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "一级标题另页",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "二三级标题无强制分页",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "1 级标题黑体 15 pt 加粗",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "2 级标题黑体 14 pt 加粗",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "3 级标题黑体 12 pt 加粗",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "全部文本 1.5 倍行距",
+    "passed": true,
+    "detail": "145 段（含表格与代码）"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "摘要"
+  },
+  {
+    "rule": "摘要不首行缩进",
+    "passed": true,
+    "detail": "针对偏远输电区段近距离复核需要人员反"
+  },
+  {
+    "rule": "摘要不首行缩进",
+    "passed": true,
+    "detail": "关键词：巡检机器人；软件架构；任务状"
+  },
+  {
+    "rule": "摘要不首行缩进",
+    "passed": true,
+    "detail": "Abstract"
+  },
+  {
+    "rule": "摘要不首行缩进",
+    "passed": true,
+    "detail": "LineGuard is a res"
+  },
+  {
+    "rule": "摘要不首行缩进",
+    "passed": true,
+    "detail": "Keywords: inspecti"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "第 1 章 机器人构想与创业定位"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "1.1 使用场景与产品价值"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "1.2 机器人组成与首期边界"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "第 2 章 软件功能与运行约束"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "2.1 从用途到功能"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "2.2 异常处理与可判定的结果"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "第 3 章 软件架构设计"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "3.1 运行实体与调用关系"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "3.2 数据组织与一致性"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "3.3 任务状态与恢复策略"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "3.4 实时通知与接口契约"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "第 4 章 关键代码与设备端设计"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "4.1 状态转换约束"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "4.2 指令幂等与执行调度"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "4.3 设备端安全控制伪代码"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "第 5 章 运行验证与结论"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "5.1 验证方法与结果"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "5.2 演示与复现"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "5.3 结论与后续工作"
+  },
+  {
+    "rule": "标题不首行缩进",
+    "passed": true,
+    "detail": "参考文献"
+  },
+  {
+    "rule": "正文宋体小四与两字符缩进",
+    "passed": true,
+    "detail": "24 段"
+  },
+  {
+    "rule": "代码 Consolas 五号中文宋体无首缩",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "参考文献宋体五号无首缩",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "图表题宋体五号按章编号",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "图题紧随图片",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "图片与图题保持同页",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "表题在上方",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "表格行不拆分且表头可重复",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "图题紧随图片",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "图片与图题保持同页",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "图题紧随图片",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "图片与图题保持同页",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "表题在上方",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "表格行不拆分且表头可重复",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "Java 节选与附件源码一致",
+    "passed": true,
+    "detail": "TaskStateMachine.java"
+  },
+  {
+    "rule": "Java 节选与附件源码一致",
+    "passed": true,
+    "detail": "MissionStateService.java"
+  },
+  {
+    "rule": "模板保留部件一致",
+    "passed": true,
+    "detail": "word/media/image1.png"
+  },
+  {
+    "rule": "模板保留部件一致",
+    "passed": true,
+    "detail": "word/theme/theme1.xml"
+  },
+  {
+    "rule": "模板保留部件一致",
+    "passed": true,
+    "detail": "word/fontTable.xml"
+  },
+  {
+    "rule": "模板保留部件一致",
+    "passed": true,
+    "detail": "docProps/custom.xml"
+  },
+  {
+    "rule": "实际 PDF 已生成",
+    "passed": true,
+    "detail": "LineGuard_课程论文_V2.0.pdf"
+  },
+  {
+    "rule": "实际总页数含封面在 5 到 10 页",
+    "passed": true,
+    "detail": "10"
+  },
+  {
+    "rule": "PDF 中文与身份可提取",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "封面为一页",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "正文页码连续",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "rule": "正文五章均已渲染",
+    "passed": true,
+    "detail": ""
+  }
+]

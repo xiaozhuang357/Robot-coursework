@@ -1,0 +1,116 @@
+{
+  "input": "/Users/zhanglishuo/developer/github.com/Robot-coursework/\u300a\u667a\u80fd\u673a\u5668\u4eba\u8f6f\u4ef6\u8bbe\u8ba1\u65b9\u6cd5\u4e0e\u5b9e\u8df5\u300b\u5c01\u9762\u53ca\u683c\u5f0f\u89c4\u8303.docx",
+  "fonts_by_char_count": {
+    "\u5b8b\u4f53": 500,
+    "\u9ed1\u4f53": 25
+  },
+  "direct_run_formatting_runs": 84,
+  "direct_paragraph_formatting_paragraphs": 55,
+  "heading_like_paragraphs_not_heading_style": [
+    {
+      "para_index": 5,
+      "text": " \u300a\u667a\u80fd\u673a\u5668\u4eba\u8f6f\u4ef6\u8bbe\u8ba1\u65b9\u6cd5\u4e0e\u5b9e\u8df5\u300b",
+      "style": "Normal"
+    },
+    {
+      "para_index": 6,
+      "text": "\u8bfe\u7a0b\u8bba\u6587",
+      "style": "Normal"
+    },
+    {
+      "para_index": 8,
+      "text": "\u9898\u76ee\u81ea\u62df",
+      "style": "Normal"
+    },
+    {
+      "para_index": 23,
+      "text": "2026-2027\u5b66\u5e74\u79cb\u5b63\u5b66\u671f",
+      "style": "Normal"
+    },
+    {
+      "para_index": 24,
+      "text": "\u683c\u5f0f\u89c4\u8303\uff08\u672c\u9875\u5220\u9664\uff09\uff1a",
+      "style": "Normal"
+    },
+    {
+      "para_index": 49,
+      "text": "\u5b66  \u53f7\uff1a",
+      "style": "Normal"
+    },
+    {
+      "para_index": 51,
+      "text": "\u59d3  \u540d\uff1a",
+      "style": "Normal"
+    },
+    {
+      "para_index": 53,
+      "text": "\u9898  \u76ee\uff1a",
+      "style": "Normal"
+    },
+    {
+      "para_index": 55,
+      "text": "\u5f97  \u5206\uff1a",
+      "style": "Normal"
+    }
+  ],
+  "examples": {
+    "direct_paragraph_formatting": [
+      {
+        "para_index": 1,
+        "text": "",
+        "style": "Normal"
+      },
+      {
+        "para_index": 2,
+        "text": "",
+        "style": "Normal"
+      },
+      {
+        "para_index": 3,
+        "text": "",
+        "style": "Normal"
+      },
+      {
+        "para_index": 4,
+        "text": "",
+        "style": "Normal"
+      },
+      {
+        "para_index": 5,
+        "text": " \u300a\u667a\u80fd\u673a\u5668\u4eba\u8f6f\u4ef6\u8bbe\u8ba1\u65b9\u6cd5\u4e0e\u5b9e\u8df5\u300b",
+        "style": "Normal"
+      }
+    ],
+    "direct_run_formatting": [
+      {
+        "para_index": 5,
+        "run_text": " \u300a",
+        "style": "Normal"
+      },
+      {
+        "para_index": 5,
+        "run_text": "\u667a\u80fd\u673a\u5668\u4eba\u8f6f\u4ef6\u8bbe\u8ba1\u65b9\u6cd5\u4e0e\u5b9e\u8df5",
+        "style": "Normal"
+      },
+      {
+        "para_index": 5,
+        "run_text": "\u300b",
+        "style": "Normal"
+      },
+      {
+        "para_index": 6,
+        "run_text": "\u8bfe\u7a0b\u8bba\u6587",
+        "style": "Normal"
+      },
+      {
+        "para_index": 8,
+        "run_text": "\u9898\u76ee\u81ea\u62df",
+        "style": "Normal"
+      }
+    ]
+  },
+  "notes": [
+    "Direct formatting is not always wrong, but it often causes inconsistent output when templates change.",
+    "Heading-like paragraphs not using Heading styles can break TOC and accessibility."
+  ]
+}

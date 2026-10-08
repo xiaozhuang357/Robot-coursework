@@ -1,0 +1,54 @@
+erDiagram
+    LINE_SEGMENTS ||--o{ INSPECTION_POINTS : 包含
+    INSPECTION_POINTS ||--o{ INSPECTION_TASKS : 巡检目标
+    INSPECTION_TASKS ||--o{ TASK_EVENTS : 状态留痕
+    INSPECTION_TASKS ||--o{ DETECTION_RECORDS : 产生
+    INSPECTION_TASKS ||--o| REVIEW_RECORDS : 人工结论
+    INSPECTION_TASKS ||--o{ COMMAND_RECEIPTS : 指令去重
+    DEVICES ||--o{ INSPECTION_TASKS : 执行
+    LINE_SEGMENTS {
+        string id PK
+        double lengthMeters
+    }
+    INSPECTION_POINTS {
+        string id PK
+        string lineSegmentId FK
+        double positionMeters
+    }
+    DEVICES {
+        string id PK
+        string type
+        string state
+        int batteryPercent
+    }
+    INSPECTION_TASKS {
+        uuid id PK
+        string taskCode
+        string status
+        string inspectionPointId FK
+    }
+    TASK_EVENTS {
+        bigint id PK
+        uuid taskId FK
+        string fromStatus
+        string toStatus
+        string eventType
+    }
+    DETECTION_RECORDS {
+        uuid id PK
+        uuid taskId FK
+        double positionMeters
+        string quality
+        int captureIndex
+    }
+    REVIEW_RECORDS {
+        uuid id PK
+        uuid taskId FK
+        string conclusion
+        string reviewer
+    }
+    COMMAND_RECEIPTS {
+        bigint id PK
+        uuid taskId FK
+        string commandId
+    }

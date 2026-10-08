@@ -1,0 +1,27 @@
+stateDiagram-v2
+    direction LR
+    CREATED : 待派发
+    PRECHECKING : 任务预检
+    PRECHECK_FAILED : 预检未通过
+    DEPARTING : 解除驻留
+    MOVING : 前往检测点
+    INSPECTING : 定点检测
+    UPLOADING : 数据上传
+    AWAITING_REVIEW : 等待复核
+    RETURNING : 安全返航
+    DOCKING : 对接驻留
+    COMPLETED : 任务完成
+    [*] --> CREATED
+    CREATED --> PRECHECKING : 派发指令
+    PRECHECKING --> DEPARTING : 预检通过
+    PRECHECKING --> PRECHECK_FAILED : 预检未通过
+    PRECHECK_FAILED --> PRECHECKING : 修正后重派
+    DEPARTING --> MOVING : 解除锁止离站
+    MOVING --> INSPECTING : 到达检测点
+    INSPECTING --> UPLOADING : 定点采集完成
+    UPLOADING --> AWAITING_REVIEW : 上传完成
+    AWAITING_REVIEW --> INSPECTING : 图像不可判读 重采一次
+    AWAITING_REVIEW --> RETURNING : 复核结论
+    RETURNING --> DOCKING : 进入低速对接区
+    DOCKING --> COMPLETED : 锁止与补能确认
+    COMPLETED --> [*]

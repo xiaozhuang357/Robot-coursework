@@ -6,14 +6,22 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+    properties:
+      # 挂一个逐条计数的 SQL 计数器：列表接口的 N+1 只能靠语句条数发现，
+      # Hibernate 自带的 prepareStatementCount 会把复用算成一条，断言会假通过
+      hibernate.session_factory.statement_inspector: com.lineguard.SqlCounter
 
 lineguard:
+  time-zone: Asia/Shanghai
+  web:
+    allowed-origins: http://localhost:5173,http://127.0.0.1:5173
   simulation:
     enabled: false
     tick-millis: 10
     step-meters: 250
     minimum-departure-battery: 40
     critical-battery: 10
+    fault-battery-percent: 18
     docking-max-retries: 2
   storage:
     image-root: ./target/test-images

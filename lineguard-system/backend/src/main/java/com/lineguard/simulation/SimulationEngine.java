@@ -58,8 +58,14 @@ public class SimulationEngine {
             }
         } catch (Exception exception) {
             log.error("任务 {} 的仿真推进失败", taskId, exception);
-            missionStateService.handleSimulationFailure(taskId, exception.getMessage());
-            stop(taskId);
+            try {
+                missionStateService.handleSimulationFailure(taskId, exception.getMessage());
+            } catch (Exception handlingFailure) {
+                log.error("任务 {} 的异常处置同样失败，保留调度清理", taskId, handlingFailure);
+            } finally {
+                // 必须移除调度记录，否则该任务无法再通过 startOrResume 恢复推进。
+                stop(taskId);
+            }
         }
     }
 }

@@ -1,0 +1,21 @@
+sequenceDiagram
+    autonumber
+    participant O as 运维人员
+    participant P as 管理平台
+    participant G as 执行端网关
+    participant R as Robot
+    participant K as Dock
+    O->>P: 创建任务：检测点与检测内容
+    O->>P: 派发指令：任务编号与指令编号
+    P->>G: 预检通过后下发任务级目标位置
+    G->>K: 解除锁止
+    G->>R: 沿线移动
+    R-->>P: 状态与位置上报
+    P-->>O: SSE 推送设备快照与任务事件
+    R-->>P: 到达检测点停车稳定姿态并上传图像
+    P-->>O: 任务转入等待复核
+    O->>P: 提交复核结论
+    P->>G: 下达返航指令
+    G->>K: 对接握手：到位 锁止 补能
+    K-->>P: 对接与补能确认
+    P-->>O: SSE 推送最终任务状态：任务闭环

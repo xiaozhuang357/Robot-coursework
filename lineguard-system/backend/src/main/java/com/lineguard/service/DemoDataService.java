@@ -15,11 +15,11 @@ import com.lineguard.repository.LineSegmentRepository;
 import com.lineguard.repository.ReviewRecordRepository;
 import com.lineguard.repository.TaskEventRepository;
 import com.lineguard.storage.InspectionImageStorage;
-import jakarta.transaction.Transactional;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Order(1)

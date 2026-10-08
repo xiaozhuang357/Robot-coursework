@@ -17,8 +17,9 @@ public class TaskStateMachine {
 
     public TaskStateMachine() {
         allow(TaskStatus.CREATED, TaskStatus.PRECHECKING, TaskStatus.ABORTED);
-        allow(TaskStatus.PRECHECK_FAILED, TaskStatus.PRECHECKING, TaskStatus.ABORTED);
-        allow(TaskStatus.PRECHECKING, TaskStatus.DEPARTING, TaskStatus.PRECHECK_FAILED, TaskStatus.ABORTED);
+        allow(TaskStatus.PRECHECK_FAILED, TaskStatus.PRECHECKING, TaskStatus.SAFE_PARKED, TaskStatus.ABORTED);
+        allow(TaskStatus.PRECHECKING, TaskStatus.DEPARTING, TaskStatus.PRECHECK_FAILED,
+                TaskStatus.SAFE_PARKED, TaskStatus.ABORTED);
         allow(TaskStatus.DEPARTING, TaskStatus.MOVING, TaskStatus.RETURNING,
                 TaskStatus.WAITING_MANUAL, TaskStatus.SAFE_PARKED, TaskStatus.ABORTED);
         allow(TaskStatus.MOVING, TaskStatus.INSPECTING, TaskStatus.RETURNING,

@@ -12,6 +12,10 @@ if (Test-Path -LiteralPath $pidRecordPath) {
     throw "An existing demo process record was found. Run stop-demo.ps1 first."
 }
 
+# 注意：start-demo.sh 多了端口预检（占用 8080/5173 时直接拒绝启动）。本脚本暂缺这一段：
+# 若上一次演示是手工启动的，新进程会因端口被占而失败，而旧进程照样应答就绪检查，
+# 结果是脚本报"已就绪"、跑的却是旧版本。需要时按同样思路加 Get-NetTCPConnection 检查。
+
 if (-not (Test-Path -LiteralPath (Join-Path $frontendDirectory "node_modules"))) {
     Write-Host "[LineGuard] Installing frontend dependencies..." -ForegroundColor Cyan
     Push-Location $frontendDirectory

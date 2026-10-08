@@ -1,0 +1,18 @@
+flowchart LR
+    subgraph Client["浏览器"]
+        UI["Vue 3 单页应用<br/>localhost:5173"]
+    end
+    subgraph Server["Spring Boot 进程 :8080"]
+        API["REST 接口与服务层<br/>/api/v1/**"]
+        STREAM["SSE 事件流<br/>/api/v1/events/stream"]
+        SIM["仿真调度线程<br/>固定步长推进任务"]
+    end
+    subgraph Storage["本地文件"]
+        DB[("H2 文件库<br/>任务与状态历史")]
+        IMAGES["检测图像目录<br/>文件名含任务编号与采集序号"]
+    end
+    UI -->|"HTTP 请求"| API
+    STREAM -.->|"长连接推送"| UI
+    SIM -->|"同进程推进任务"| API
+    API --> DB
+    API --> IMAGES

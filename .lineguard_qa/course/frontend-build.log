@@ -1,0 +1,20 @@
+
+> lineguard-frontend@0.1.0 build
+> vue-tsc -b && vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 1653 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                           0.47 kB │ gzip:   0.33 kB
+dist/assets/SpanScene3D-CaDQ5eVI.css      1.48 kB │ gzip:   0.54 kB
+dist/assets/index-Dt2JCPlG.css          386.57 kB │ gzip:  53.36 kB
+dist/assets/SpanScene3D-kZ4KkZEv.js     595.65 kB │ gzip: 151.11 kB
+dist/assets/index-BkKdxiMb.js         1,102.93 kB │ gzip: 361.09 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 6.22s

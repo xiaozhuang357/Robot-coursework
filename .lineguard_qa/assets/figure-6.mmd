@@ -1,0 +1,13 @@
+flowchart LR
+    RUN["移动 检测 上传 返航 对接 阶段"]
+    DOCKED["在 Dock 待命或已完成对接"]
+    PARKED["安全驻停<br/>Robot 挂线驻停并保留任务归属"]
+    MANUAL["等待人工处理<br/>Robot 本地停车"]
+    DONE["任务已终止"]
+    BACK["安全返航 → 对接驻留 → 任务完成"]
+    RUN -->|"未知障碍 对接失败重试用尽 电量低于返程阈值"| PARKED
+    RUN -->|"运维人员终止"| PARKED
+    RUN -->|"通信中断 仿真异常 平台重启"| MANUAL
+    DOCKED -->|"运维人员终止"| DONE
+    PARKED -->|"召回返航"| BACK
+    MANUAL -->|"人工返航"| BACK

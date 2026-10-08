@@ -28,8 +28,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -68,7 +71,12 @@ public class MissionQueryService {
     }
 
     public List<TaskSummaryResponse> tasks() {
-        return taskRepository.findAllByOrderByCreatedAtDesc().stream().map(this::mapSummary).toList();
+        List<InspectionTask> tasks = taskRepository.findAllByOrderByCreatedAtDesc();
+        Map<String, InspectionPoint> points = loadPoints(
+                tasks.stream().map(InspectionTask::getInspectionPointId).toList());
+        return tasks.stream()
+                .map(task -> mapSummary(task, points.get(task.getInspectionPointId())))
+                .toList();
     }
 
     public Optional<TaskDetailResponse> activeTask() {
@@ -99,23 +107,35 @@ public class MissionQueryService {
                 device.getActiveTaskId(), device.getStatusMessage(), device.getUpdatedAt());
     }
 
-    private TaskSummaryResponse mapSummary(InspectionTask task) {
-        InspectionPoint point = pointRepository.findById(task.getInspectionPointId()).orElse(null);
+    private TaskSummaryResponse mapSummary(InspectionTask task, InspectionPoint point) {
         return new TaskSummaryResponse(task.getId(), task.getTaskCode(), task.getSource(),
                 task.getInspectionPointId(), point == null ? task.getInspectionPointId() : point.getName(),
                 task.getInspectionItem(), task.getStatus(), task.getStatusMessage(), task.getCreatedAt(),
                 task.getUpdatedAt(), task.getCompletedAt());
     }
 
+    /** 一次把用到的检测点查出来：逐个 findById 会让任务列表退化成 N+1 次查询。 */
+    private Map<String, InspectionPoint> loadPoints(List<String> ids) {
+        List<String> distinct = ids.stream().filter(Objects::nonNull).distinct().toList();
+        if (distinct.isEmpty()) {
+            return Map.of();
+        }
+        return pointRepository.findAllById(distinct).stream()
+                .collect(Collectors.toMap(InspectionPoint::getId, point -> point));
+    }
+
     private TaskDetailResponse mapDetail(InspectionTask task) {
+        // 检测点被删掉属于数据不一致，不是服务内部故障。以前这里抛 IllegalStateException，
+        // 结果是 500，看起来像后端崩了；现在按冲突返回并说清原因。
         InspectionPoint point = pointRepository.findById(task.getInspectionPointId())
-                .orElseThrow(() -> new IllegalStateException("任务检测点不存在"));
+                .orElseThrow(() -> new BusinessException(HttpStatus.CONFLICT,
+                        "任务的检测点已不存在，数据不一致，请重置演示环境"));
         DetectionResponse detection = detectionRepository.findFirstByTaskIdOrderByCapturedAtDesc(task.getId())
                 .map(this::mapDetection).orElse(null);
         ReviewResponse review = reviewRepository.findByTaskId(task.getId()).map(this::mapReview).orElse(null);
         List<EventResponse> events = eventRepository.findByTaskIdOrderByCreatedAtAsc(task.getId())
                 .stream().map(this::mapEvent).toList();
-        return new TaskDetailResponse(mapSummary(task), mapPoint(point), detection, review, events);
+        return new TaskDetailResponse(mapSummary(task, point), mapPoint(point), detection, review, events);
     }
 
     private PointResponse mapPoint(InspectionPoint point) {

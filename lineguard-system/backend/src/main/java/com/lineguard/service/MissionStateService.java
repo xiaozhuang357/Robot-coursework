@@ -28,6 +28,7 @@ import com.lineguard.repository.TaskEventRepository;
 import com.lineguard.simulation.SimulationProperties;
 import com.lineguard.simulation.SimulationRuntime;
 import com.lineguard.storage.InspectionImageStorage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -43,8 +45,7 @@ import java.util.UUID;
 @Service
 public class MissionStateService {
 
-    private static final DateTimeFormatter CODE_TIME = DateTimeFormatter
-            .ofPattern("yyyyMMdd-HHmmss").withZone(ZoneId.of("Asia/Shanghai"));
+    private final DateTimeFormatter codeTime;
 
     private final InspectionTaskRepository taskRepository;
     private final InspectionPointRepository pointRepository;
@@ -70,7 +71,9 @@ public class MissionStateService {
                                SimulationProperties properties,
                                SimulationRuntime runtime,
                                InspectionImageStorage imageStorage,
-                               RealtimeEventService realtime) {
+                               RealtimeEventService realtime,
+                               @Value("${lineguard.time-zone:Asia/Shanghai}") String timeZone) {
+        this.codeTime = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss").withZone(ZoneId.of(timeZone));
         this.taskRepository = taskRepository;
         this.pointRepository = pointRepository;
         this.deviceRepository = deviceRepository;
@@ -92,7 +95,7 @@ public class MissionStateService {
         String item = request.inspectionItem() == null || request.inspectionItem().isBlank()
                 ? point.getDefaultInspectionItem() : request.inspectionItem().trim();
         UUID id = UUID.randomUUID();
-        String code = "LG-" + CODE_TIME.format(Instant.now()) + "-" + id.toString().substring(0, 4).toUpperCase();
+        String code = "LG-" + codeTime.format(Instant.now()) + "-" + id.toString().substring(0, 4).toUpperCase();
         InspectionTask task = taskRepository.save(new InspectionTask(id, code, request.source(),
                 point.getId(), item, expiresAt));
         eventRepository.save(new TaskEvent(id, null, TaskStatus.CREATED, "TASK_CREATED", "任务已创建"));
@@ -245,10 +248,12 @@ public class MissionStateService {
             return safePark(task, robot, dock, "Dock 对接失败，Robot 保持挂线驻停");
         }
 
-        robot.update(RobotState.DOCKED.name(), true, robot.getBatteryPercent(), 0,
+        // 驻留即补能。Dock 的状态本来就是 LOCKED_CHARGING，文案也承诺了"充电确认"，
+        // 如果电量只降不升，跑满九轮后就会低于离站阈值，此后每次派发都预检失败。
+        robot.update(RobotState.DOCKED.name(), true, properties.getRechargedBatteryPercent(), 0,
                 null, "机械锁止、充电确认和数据同步完成");
         dock.update(DockState.LOCKED_CHARGING.name(), true, dock.getBatteryPercent(), 0,
-                null, "Robot 已安全驻留并开始补能");
+                null, "Robot 已驻留 Dock 并开始补能");
         deviceRepository.saveAll(List.of(robot, dock));
         transition(task, TaskStatus.COMPLETED, "任务闭环完成，Robot 已返回 Dock");
         runtime.clearTask(task.getId());
@@ -346,16 +351,16 @@ public class MissionStateService {
         }
         Device robot = requireRobot();
         Device dock = requireDock();
-        boolean atDock = robot.getPositionMeters() <= 0;
-        robot.update(atDock ? RobotState.DOCKED.name() : RobotState.SAFE_PARKED.name(),
-                robot.isOnline(), robot.getBatteryPercent(), robot.getPositionMeters(),
-                atDock ? null : taskId, atDock ? "任务终止，Robot 保持驻留" : "任务终止，Robot 保持挂线驻停");
-        if (atDock) {
-            dock.update(DockState.LOCKED_CHARGING.name(), dock.isOnline(), dock.getBatteryPercent(),
-                    0, null, "Robot 已驻留");
+        if (robot.getPositionMeters() > 0) {
+            // 机器人挂在线路上，只能进入安全驻停并保留任务归属，由运维人员召回后才算真正结束。
+            return safePark(task, robot, dock, "任务已终止，Robot 挂线安全驻停，等待人工召回");
         }
+        robot.update(RobotState.DOCKED.name(), robot.isOnline(), properties.getRechargedBatteryPercent(), 0,
+                null, "任务已终止，Robot 保持驻留");
+        dock.update(DockState.LOCKED_CHARGING.name(), dock.isOnline(), dock.getBatteryPercent(),
+                0, null, "Robot 已驻留");
         deviceRepository.saveAll(List.of(robot, dock));
-        transition(task, TaskStatus.ABORTED, "任务已由运维人员终止");
+        transition(task, TaskStatus.ABORTED, "任务已终止，Robot 保持驻留");
         publishDevices(robot, dock);
         return task.getStatus();
     }
@@ -366,35 +371,50 @@ public class MissionStateService {
                 ? taskRepository.findFirstByStatusInOrderByCreatedAtDesc(TaskStatus.activeStatuses())
                     .orElseThrow(() -> conflict("当前没有可注入故障的运行任务"))
                 : requireTask(request.taskId());
+        if (task.getStatus().isTerminal()) {
+            throw conflict("任务已结束，不能再注入故障");
+        }
         boolean enabled = request.enabled() == null || request.enabled();
-        runtime.setFault(task.getId(), request.type(), enabled);
         Device robot = requireRobot();
         Device dock = requireDock();
 
         switch (request.type()) {
             case LOW_BATTERY -> {
-                robot.update(robot.getState(), robot.isOnline(), 18, robot.getPositionMeters(),
+                int injectedBattery = properties.getFaultBatteryPercent();
+                robot.update(robot.getState(), robot.isOnline(), injectedBattery, robot.getPositionMeters(),
                         task.getId(), "仿真注入：返程储备电量偏低");
                 deviceRepository.save(robot);
-                if (!task.getStatus().isTerminal() && robot.getPositionMeters() > 0
-                        && task.getStatus() != TaskStatus.RETURNING && task.getStatus() != TaskStatus.DOCKING) {
-                    robot.update(RobotState.MOVING_RETURN.name(), robot.isOnline(), 18,
-                            robot.getPositionMeters(), task.getId(), "低电量策略触发自动返航");
-                    transition(task, TaskStatus.RETURNING, "检测到低电量，任务转入安全返航");
-                } else {
+                if (task.getStatus() == TaskStatus.RETURNING || task.getStatus() == TaskStatus.DOCKING) {
                     recordEvent(task, "FAULT_INJECTED", "已注入低电量状态");
+                } else {
+                    String blocker = autoReturnBlocker(task, robot);
+                    if (blocker == null) {
+                        robot.update(RobotState.MOVING_RETURN.name(), true, injectedBattery,
+                                robot.getPositionMeters(), task.getId(), "低电量策略触发自动返航");
+                        deviceRepository.save(robot);
+                        transition(task, TaskStatus.RETURNING, "检测到低电量，任务转入安全返航");
+                    } else {
+                        recordEvent(task, "FAULT_INJECTED", "已注入低电量状态，暂不自动返航：" + blocker);
+                    }
                 }
             }
             case COMMUNICATION_LOSS -> {
-                robot.update(enabled ? RobotState.SAFE_PARKED.name() : RobotState.SAFE_PARKED.name(),
-                        !enabled, robot.getBatteryPercent(), robot.getPositionMeters(), task.getId(),
-                        enabled ? "通信中断，本地安全停车" : "通信已恢复，等待状态确认");
-                deviceRepository.save(robot);
-                if (enabled && task.getStatus() != TaskStatus.WAITING_MANUAL) {
-                    transition(task, TaskStatus.WAITING_MANUAL, "通信中断，Robot 本地停车并等待人工处理");
+                if (enabled) {
+                    robot.update(RobotState.SAFE_PARKED.name(), false, robot.getBatteryPercent(),
+                            robot.getPositionMeters(), task.getId(), "通信中断，本地安全停车");
+                    deviceRepository.save(robot);
+                    if (task.getStatus() != TaskStatus.WAITING_MANUAL) {
+                        transition(task, TaskStatus.WAITING_MANUAL, "通信中断，Robot 本地停车并等待人工处理");
+                    } else {
+                        recordEvent(task, "FAULT_INJECTED", "已注入通信中断");
+                    }
                 } else {
-                    recordEvent(task, enabled ? "FAULT_INJECTED" : "FAULT_CLEARED",
-                            enabled ? "已注入通信中断" : "通信恢复，设备状态已重新同步");
+                    // 恢复通信只改在线标志。Robot 停在哪里、下一步去哪，要由运维人员另下指令决定；
+                    // 顺手把状态改回 MOVING_* 等于替运维人员做了决定，也会让"离线"这件事凭空消失。
+                    robot.update(robot.getState(), true, robot.getBatteryPercent(),
+                            robot.getPositionMeters(), task.getId(), "通信已恢复，等待人工确认下一步动作");
+                    deviceRepository.save(robot);
+                    recordEvent(task, "FAULT_CLEARED", "通信恢复，设备状态已重新同步");
                 }
             }
             case OBSTACLE -> {
@@ -414,8 +434,32 @@ public class MissionStateService {
             case BLURRED_IMAGE -> recordEvent(task, enabled ? "FAULT_ARMED" : "FAULT_CLEARED",
                     enabled ? "已设置下一张图像为不可判读" : "图像模糊故障已解除");
         }
+        // 故障标记必须在状态迁移之后落内存：迁移非法会抛 409，而事务只回滚数据库，
+        // 回滚不了 SimulationRuntime 里的这份标记。先写标记的话，一条被拒绝的注入指令
+        // 会留下"影子障碍"，让之后正常派发的任务在第一次移动时莫名驻停。
+        runtime.setFault(task.getId(), request.type(), enabled);
         publishDevices(robot, dock);
         return task.getStatus();
+    }
+
+    /**
+     * 低电量自动返航与人工返航共用同一套联锁，不能成为绕过障碍与离线的后门。
+     * 返回 null 表示可以自动返航，否则返回暂不返航的原因。
+     */
+    private String autoReturnBlocker(InspectionTask task, Device robot) {
+        if (robot.getPositionMeters() <= 0) {
+            return "Robot 尚未离站";
+        }
+        if (!robot.isOnline()) {
+            return "Robot 离线，需恢复通信后由人工下达返航";
+        }
+        if (task.getStatus() == TaskStatus.WAITING_MANUAL) {
+            return "任务处于等待人工处理状态";
+        }
+        if (runtime.hasFault(task.getId(), FaultType.OBSTACLE)) {
+            return "障碍状态尚未解除";
+        }
+        return null;
     }
 
     @Transactional
@@ -470,7 +514,8 @@ public class MissionStateService {
 
     private void recordEvent(InspectionTask task, String type, String message) {
         eventRepository.save(new TaskEvent(task.getId(), task.getStatus(), task.getStatus(), type, message));
-        realtime.publish("TASK_EVENT", Map.of("taskId", task.getId(), "status", task.getStatus(), "message", message));
+        realtime.publish("TASK_EVENT", Map.of("taskId", task.getId(), "eventType", type,
+                "status", task.getStatus(), "message", message));
     }
 
     private void publishTask(InspectionTask task) {
@@ -478,8 +523,20 @@ public class MissionStateService {
     }
 
     private void publishDevices(Device robot, Device dock) {
-        realtime.publish("DEVICES_UPDATED", Map.of("robotState", robot.getState(), "dockState", dock.getState(),
-                "positionMeters", robot.getPositionMeters(), "batteryPercent", robot.getBatteryPercent()));
+        realtime.publish("DEVICES_UPDATED", Map.of("robot", snapshot(robot), "dock", snapshot(dock)));
+    }
+
+    /** 完整设备快照，使前端可以按事件增量刷新，不必为每次位置变化重新拉取接口。 */
+    private Map<String, Object> snapshot(Device device) {
+        Map<String, Object> values = new LinkedHashMap<>();
+        values.put("id", device.getId());
+        values.put("state", device.getState());
+        values.put("online", device.isOnline());
+        values.put("batteryPercent", device.getBatteryPercent());
+        values.put("positionMeters", device.getPositionMeters());
+        values.put("statusMessage", device.getStatusMessage());
+        values.put("updatedAt", device.getUpdatedAt());
+        return values;
     }
 
     private InspectionTask requireTask(UUID taskId) {

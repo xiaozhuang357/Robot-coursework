@@ -1,0 +1,156 @@
+{
+  "checkedAt": "2026-10-08T15:37:27.700Z",
+  "results": [
+    {
+      "scenario": "1440px console",
+      "passed": true,
+      "viewport": 1440,
+      "width": 1440
+    },
+    {
+      "scenario": "1440px 工程视图",
+      "passed": true,
+      "viewport": 1440,
+      "width": 1440
+    },
+    {
+      "scenario": "1440px history",
+      "passed": true,
+      "viewport": 1440,
+      "width": 1440
+    },
+    {
+      "scenario": "1440px 历史详情",
+      "passed": true,
+      "viewport": 1440,
+      "width": 1440
+    },
+    {
+      "scenario": "1440px devices",
+      "passed": true,
+      "viewport": 1440,
+      "width": 1440
+    },
+    {
+      "scenario": "1024px console",
+      "passed": true,
+      "viewport": 1024,
+      "width": 1024
+    },
+    {
+      "scenario": "1024px 工程视图",
+      "passed": true,
+      "viewport": 1024,
+      "width": 1024
+    },
+    {
+      "scenario": "1024px history",
+      "passed": true,
+      "viewport": 1024,
+      "width": 1024
+    },
+    {
+      "scenario": "1024px 历史详情",
+      "passed": true,
+      "viewport": 1024,
+      "width": 1024
+    },
+    {
+      "scenario": "1024px devices",
+      "passed": true,
+      "viewport": 1024,
+      "width": 1024
+    },
+    {
+      "scenario": "768px console",
+      "passed": true,
+      "viewport": 768,
+      "width": 768
+    },
+    {
+      "scenario": "768px 工程视图",
+      "passed": true,
+      "viewport": 768,
+      "width": 768
+    },
+    {
+      "scenario": "768px history",
+      "passed": true,
+      "viewport": 768,
+      "width": 768
+    },
+    {
+      "scenario": "768px 历史详情",
+      "passed": true,
+      "viewport": 768,
+      "width": 768
+    },
+    {
+      "scenario": "768px devices",
+      "passed": true,
+      "viewport": 768,
+      "width": 768
+    },
+    {
+      "scenario": "390px console",
+      "passed": true,
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "scenario": "390px 工程视图",
+      "passed": true,
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "scenario": "390px history",
+      "passed": true,
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "scenario": "390px 历史详情",
+      "passed": true,
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "scenario": "390px devices",
+      "passed": true,
+      "viewport": 390,
+      "width": 390
+    },
+    {
+      "scenario": "320px console",
+      "passed": true,
+      "viewport": 320,
+      "width": 320
+    },
+    {
+      "scenario": "320px 工程视图",
+      "passed": true,
+      "viewport": 320,
+      "width": 320
+    },
+    {
+      "scenario": "320px history",
+      "passed": true,
+      "viewport": 320,
+      "width": 320
+    },
+    {
+      "scenario": "320px 历史详情",
+      "passed": true,
+      "viewport": 320,
+      "width": 320
+    },
+    {
+      "scenario": "320px devices",
+      "passed": true,
+      "viewport": 320,
+      "width": 320
+    }
+  ],
+  "errors": []
+}

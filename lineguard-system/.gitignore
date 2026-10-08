@@ -2,6 +2,9 @@ backend/target/
 backend/runtime-data/
 frontend/node_modules/
 frontend/dist/
+frontend/vite.config.js
+frontend/vite.config.d.ts
+*.tsbuildinfo
 .run-logs/
 .qa/
 .lineguard-demo.pids.json

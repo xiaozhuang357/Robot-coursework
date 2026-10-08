@@ -1,0 +1,145 @@
+ 《智能机器人软件设计方法与实践》
+课程论文
+LineGuard 常驻式巡检机器人的软件设计
+学  号：
+2024303524
+姓  名：
+张立烁
+题  目：
+LineGuard 常驻式巡检机器人的软件设计
+得  分：
+2026-2027学年秋季学期
+摘要
+针对偏远输电区段近距离复核需要人员反复到场的问题，本文从创业产品的角度设计 LineGuard 常驻式巡检机器人。系统由挂线机器人、驻留站点和管理平台组成，首期限定在无须越障的单档距地线上运行。软件以一次巡检任务为中心，形成预检、移动、拍摄、上传、人工复核和返回对接的完整流程。本文采用 Java 与 Spring Boot 实现后端，采用 Vue 与 TypeScript 实现操作界面，通过任务状态机约束执行顺序，以指令回执防止重复处理，并记录检测结果和状态事件。设备运动由可控仿真器代替，设备端安全控制给出独立伪代码设计。验证覆盖正常巡检、断联、低电量、障碍、图像重采和对接失败等路径，前后端共 64 项自动化测试通过。结果证明了任务流程与数据组织的可运行性；机械可靠性、真实定位和现场通信仍需实机验证。
+关键词：巡检机器人；软件架构；任务状态机；故障仿真；人工复核
+Abstract
+LineGuard is a resident inspection robot concept for remote overhead ground-wire spans. A robot, a docking station and a management platform cooperate to collect close-range evidence for human review. The initial scope is a single span without obstacle crossing. A Java and Spring Boot backend manages tasks, command receipts and inspection records, while a Vue interface displays progress and review results. An explicit state machine constrains task transitions. A simulator executes movement and docking, and separate pseudocode describes the proposed onboard safety controller. All 64 backend and frontend tests passed, covering normal operation and selected fault scenarios. The results validate the software workflow rather than physical robot performance. Hardware integration, positioning accuracy and field reliability remain future work.
+Keywords: inspection robot; software architecture; state machine; simulation
+第 1 章 机器人构想与创业定位
+1.1 使用场景与产品价值
+本文将输电运维单位作为目标客户，提出“设备常驻区段、人员远程复核”的产品方案。在交通不便、需要重复观察的区段，机器人预先部署在线上，接到任务后采集同一位置的近距离图像，帮助运维人员决定继续观察、专项复检或派人处置。Hydro-Québec 已公开输电线路巡检机器人研究与应用案例[1]，说明该方向具有已有技术基础；本文的常驻部署与地线运行方式仍属于课程设计构想。
+创业初期拟采用设备试点部署加运维服务的方式，先验证可用率、证据可判读率和人工到场次数变化，再评估收费与成本。本文不预设市场份额、售价或投资回报。产品价值能否成立，需要将部署、维护和回收成本与实际减少的现场复核成本比较。
+1.2 机器人组成与首期边界
+机器人拟通过前后夹持轮组沿地线或光纤复合架空地线（OPGW）行走，配置相机、里程计、电量监测与本地控制器；驻留站点（Dock）负责锁止、补能和通信。图 1-1 为参数模型的结构示意，附件同时按 glTF 格式[5]导出 GLB 模型。夹持力、摩擦裕量和防脱能力尚未经过试验，不能据此认定覆冰或倒挂工况安全。
+图 1-1  机器人与驻留站点的三维概念模型
+首期仅面向预先勘察、无越障需求的单档距区段。演示线路长 1000 m，设两个候选检测点，每次任务选择其中一个。跨塔、带电维修、自动缺陷识别和多机调度不在本次实现范围。系统的“智能”体现为状态驱动的任务执行、条件判断和异常处置，图像结论由人确认。
+第 2 章 软件功能与运行约束
+2.1 从用途到功能
+表 2-1 将用途拆解为可验收的软件需求。平台负责任务与人工决策，设备端拟负责传感器采样、运动控制和本地安全。课程原型已实现平台与仿真执行器，尚未连接真实电机、相机或通信模块。
+表 2-1  软件功能与验收条件
+编号与功能
+软件行为
+原型验收条件
+F1 任务预检
+校验在线、驻留、电量和有效期
+不满足条件时不能离站
+F2 移动定位
+向选定检测点推进位置
+到达目标后转入检测
+F3 定点采集
+生成检测图与质量标记
+模糊图禁复核，可重采一次
+F4 数据管理
+关联任务、位置、图像和事件
+历史页可查看完整记录
+F5 人工复核
+保存结论、备注和填写人
+可判读图复核后进入返航
+F6 返回对接
+返程、对接、锁止和补能
+对接成功后释放任务占用
+F7 异常处理
+驻停、恢复确认、指令去重
+故障未解除时不恢复移动
+2.2 异常处理与可判定的结果
+通信中断时停车并等待人工处理，恢复通信后仍需人工决定返航。障碍触发驻停，解除前拒绝返航。低电量注入在联锁允许时触发返回，不得绕过离线或障碍限制；电量不高于 10% 时停止推进。对接失败最多重试两次。以上阈值用于课堂仿真，不代表真实续航模型。
+COMPLETED 表示机器人已返回并对接；检测成功还要求图像可判读且有复核记录。提前召回可以完成返回闭环，但缺少图像或复核时不能认定检测成功。在线路上终止任务只产生驻停并保留设备占用；在站内终止才进入 ABORTED。
+非功能需求包括事件可追溯、重启后等待确认和分层维护。当前按单实例、单机器人部署，未实现鉴权、多租户、列表分页或压力测试。浏览器刷新不得成为机器人安全的前提。
+第 3 章 软件架构设计
+3.1 运行实体与调用关系
+原型采用模块化单体，便于课堂环境启动与调试。Vue 前端负责展示和输入[2]；Spring Boot 后端承载 HTTP 接口、事务与数据访问[3]。实际调用关系如图 3-1，边框内均为已实现代码，底部设备控制器属于后续接入设计。
+图 3-1  原型架构与设备接入边界
+一次派发由 TaskController 接收并校验参数，交给 MissionApplicationService 编排，再调用 MissionStateService 更新任务、设备和事件；状态变更通过 TaskStateMachine 校验。DeviceGateway 目前只有 startOrResume、stop 和 stopAll，作用是启停仿真任务。它不是完整的设备通信协议，接入真机还需实现指令下发、回执、遥测接收和时间戳校验。
+3.2 数据组织与一致性
+InspectionTask 关联一个检测点；Device 保存在线、电量、位置与活动任务；DetectionRecord、TaskEvent 保存多次采集和过程事件；ReviewRecord 保存人工结论。CommandReceipt 以任务号与指令号联合唯一。当前实体通过编号逻辑关联，H2 未设跨表外键，由服务层事务维护变更。源码结构说明列出完整字段，生产化还需数据库约束与迁移方案。
+3.3 任务状态与恢复策略
+图 3-2 展示正常任务及异常出口。状态白名单约束转换方向，服务层校验具体条件。例如 SAFE_PARKED 可转入 RETURNING，但离线或障碍未解除时仍拒绝该操作。任务、机器人和 Dock 分别记录状态，避免将任务状态误当成机械反馈。
+图 3-2  任务状态主线与主要异常分支
+平台重启后，执行中的任务收敛为 WAITING_MANUAL，设备记录转为安全驻停，瞬时 Dock 状态回到等待返回；已等待复核、人工处理或驻停的任务保留。该逻辑只能修复仿真记录，真机是否已停止必须由设备端确认，不能靠数据库写入推断。
+3.4 实时通知与接口契约
+浏览器用 HTTP POST 提交指令，用 GET 查询快照；后端通过 SSE 推送变化通知。EventSource 支持断线重连[4]，但本项目没有事件重放，前端重连后会重新查询设备、任务列表与活动任务。SSE 通知只触发刷新，数据库查询结果作为展示依据。
+接口统一位于 /api/v1。POST /tasks 创建任务，/tasks/{id}/dispatch 派发，/tasks/{id}/review 复核；任务动作位于 /tasks/{id}/actions 下。状态变更携带 commandId，非法状态返回 HTTP 409，参数错误返回 400。完整请求示例见源码结构说明。
+第 4 章 关键代码与设备端设计
+4.1 状态转换约束
+TaskStateMachine 使用枚举映射保存允许的转换。以下方法直接摘自提交源码；初始化转移表及单元测试随附件提供。终态没有出边，查表拒绝未定义的转换。
+TaskStateMachine 状态校验源码
+public void check(TaskStatus from, TaskStatus to) {
+    if (!transitions.getOrDefault(from, Set.of()).contains(to)) {
+        throw new BusinessException(HttpStatus.CONFLICT,
+                "任务状态不能从 " + from + " 转换为 " + to);
+    }
+}
+状态转移的保存、事件记录和设备更新由 MissionStateService 的事务组织。校验失败时回滚数据库变更，前端显示业务错误。状态机不承担电量、在线和图像质量判断，这些条件在具体操作方法中检查。
+4.2 指令幂等与执行调度
+网络超时只能说明结果未知。客户端重试同一操作时应保留原 commandId，服务端通过回执表识别重复请求。下列源码为 acceptCommand 的去重分支；新指令随后写入回执，联合唯一约束防止重复记录。
+MissionStateService 指令去重源码
+if (commandRepository.existsByTaskIdAndCommandId(task.getId(),
+        commandId)) {
+    recordEvent(task, "DUPLICATE_COMMAND", "重复指令已忽略：" + commandId);
+    return false;
+}
+SimulationEngine 定时推进任务，暂停或终态时取消调度；异常时转入等待人工，并在 finally 中清理调度。当前去重仅验证串行操作，跨实例并发、数据库提交边界与实机的“恰好执行一次”仍需持久化回执及协议支持。
+4.3 设备端安全控制伪代码
+真实机器人不能依靠服务器及时获知断联后再刹车。设备端拟设置独立周期任务，先处理急停、通信超时与传感器有效性，再执行运动。以下为设计伪代码，未宣称已在硬件运行；控制周期与超时值由实机试验确定。
+设备端周期控制设计伪代码
+每个控制周期：
+    读取电量、位置、障碍和通信心跳
+    若急停或传感器无效或通信超时：
+        制动；缓存事件；进入等待确认；结束本周期
+    否则若障碍存在或电量不足以安全运动：
+        制动；上报安全驻停；结束本周期
+    否则若接收到有效且未执行的任务指令：
+        持久化指令号；执行任务步骤；记录回执
+    若到达目标点：
+        停稳；采集图像；缓存并上报结果
+    若已到站且位置与锁止信号均确认：
+        停机；允许充电；上报对接完成
+机器人本地需保存任务号、指令号、执行阶段和待上传数据。恢复通信后，平台先对账再下发新动作；重发不能直接导致再次离站。当前原型中的合成图像、瞬时补能和固定位置步长均应由真实适配器替换，任务与复核数据结构可以继续复用。
+第 5 章 运行验证与结论
+5.1 验证方法与结果
+验证在 JDK 21 环境执行 Maven 测试，在 Node 环境执行 Vitest 与前端生产构建。2026 年 10 月 8 日重新运行结果为后端 32 项、前端 32 项全部通过，构建成功。表 5-1 给出主要场景及判定依据；自动化验证范围是软件逻辑，未测量实机速度、识别精度或故障率。
+表 5-1  主要验证场景与判定结果
+场景
+预期与实际断言
+结果
+正常巡检
+采集、复核、返回，设备解除占用
+通过
+重复派发
+不产生第二次离站状态转换
+通过
+通信中断
+驻停；恢复后不自动继续任务
+通过
+障碍与低电量叠加
+自动返航不能绕过障碍联锁
+通过
+对接失败
+两次重试后驻停并保留任务
+通过
+平台重启
+任务、Robot 与 Dock 状态收敛
+通过
+前端重连
+补拉快照，更新任务与设备展示
+通过
+5.2 演示与复现
+运行附件的 start-demo 脚本，选择检测点并创建任务，到点后查看合成图像，提交复核结论，再观察返回与对接。任务历史保留过程记录；控制台可注入低电量、断联、障碍、对接失败和模糊图像。三维场景展示结构与位置，演示参数为每 700 ms 推进 120 m，不代表实机速度。
+5.3 结论与后续工作
+本文以可运行原型完成了功能分解和软件架构设计，并验证正常与异常任务。后续需完成设备通信、融合定位、本地安全控制与鉴权，先在试验台验证停车、回执恢复和对接，再评估线路部署。三维模型仅说明结构，不能替代实机可靠性验证。
+参考文献
+[1] Hydro-Québec. Hydro-Québec and National Grid sign a licensing agreement for the LineScout Technology[EB/OL]. [2026-10-08]. https://news.hydroquebec.com/news/press-releases/all-quebec/hydro-quebec-and-national-grid-sign-a-licensing-agreement-for-the-linescout-technology.html.
+[2] Vue.js Team. Introduction[EB/OL]. [2026-10-08]. https://vuejs.org/guide/introduction.html.
+[3] Spring Team. Spring Boot 3.4 Reference Documentation[EB/OL]. [2026-10-08]. https://docs.spring.io/spring-boot/3.4/reference/.
+[4] WHATWG. HTML Living Standard Server-sent events[EB/OL]. [2026-10-08]. https://html.spec.whatwg.org/multipage/server-sent-events.html.
+[5] Blender Foundation. glTF 2.0 Blender Manual[EB/OL]. [2026-10-08]. https://docs.blender.org/manual/en/5.1/addons/import_export/scene_gltf2.html.

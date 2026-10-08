@@ -1,0 +1,28 @@
+{
+  "figure": "three-views-side",
+  "plate": "three-views-side.png",
+  "width": 900,
+  "height": 760,
+  "anchors": {},
+  "bbox": {
+    "min": [
+      306.84,
+      202.81
+    ],
+    "max": [
+      593.16,
+      576.87
+    ],
+    "world_min": [
+      -0.701,
+      -0.2545,
+      -0.55
+    ],
+    "world_max": [
+      0.51,
+      0.2545,
+      0.115
+    ]
+  },
+  "note": "侧视图 宽 W × 高 H"
+}

@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-08T15:42:02.338Z",
+  "url": "http://127.0.0.1:15173",
+  "api": "http://127.0.0.1:18080",
+  "results": [
+    {
+      "scenario": "浏览器创建、三维展示、复核与对接闭环",
+      "passed": true,
+      "taskId": "4c9170e5-82f2-4a46-8138-018dc98459b2"
+    },
+    {
+      "scenario": "历史记录详情与设备页",
+      "passed": true
+    },
+    {
+      "scenario": "HTTP 重复派发只执行一次",
+      "passed": true
+    },
+    {
+      "scenario": "HTTP 障碍与低电量叠加、解除后返航",
+      "passed": true
+    },
+    {
+      "scenario": "HTTP 模糊图阻止复核、原位重采并完成",
+      "passed": true
+    },
+    {
+      "scenario": "浏览器运行无未捕获异常",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

@@ -8,6 +8,5 @@ import java.util.UUID;
 
 public interface TaskEventRepository extends JpaRepository<TaskEvent, Long> {
     List<TaskEvent> findByTaskIdOrderByCreatedAtAsc(UUID taskId);
-    void deleteByTaskId(UUID taskId);
 }
 
